@@ -1,0 +1,12 @@
+streamlit
+Cython
+numpy
+pandas
+matplotlib
+convertdate
+pystan
+yfinance
+streamlit
+plotly
+ephem
+sklearn
