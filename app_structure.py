@@ -38,10 +38,10 @@ class Sidebar:
         periods = ["1 minuto", "2 minutos", "5 minutos", "15 minutos", "30 minutos"]
         periods += ["1 hora", "1 dia", "5 dias", "1 semana"]
 
-        st.sidebar.header("Área de Periodos")
-        st.sidebar.write("Nessa seção você irá selecionar o periodo a ser analisado,"
-                         + " veja os periodos abaixo:")
-        selected_period = st.sidebar.selectbox("Escolha um periodo:", periods)
+        st.sidebar.header("Área de Intervalos")
+        st.sidebar.write("Nessa seção você irá selecionar o intervalo a ser analisado,"
+                         + " veja os intervalos abaixo:")
+        selected_period = st.sidebar.selectbox("Escolha um intervalo:", periods)
         return selected_period
 
 
