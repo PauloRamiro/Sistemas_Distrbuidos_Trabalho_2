@@ -9,7 +9,7 @@ A aplicação está disponível de forma online pelo link: http://abre.ai/prsd2
 
 ## Dependências
 
-* As depenências do programa estão listadas no arquivo `requirements.txt` para instalação utilizando o pip. Entre as dependências estão:
+As depenências do programa estão listadas no arquivo `requirements.txt` para instalação utilizando o pip. Entre as dependências estão:
 * streamlit;
 * Cython;
 * numpy;
