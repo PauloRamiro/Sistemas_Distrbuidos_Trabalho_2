@@ -5,15 +5,16 @@ import yfinance as yf
 class DataTicker:
     @staticmethod
     def collecting_data_name_in_csv():
+        #le as identificações das açoes do arquivo CSV e retorna um PD DataFrame
         path = "tickers.csv"
         return pd.read_csv(path, delimiter=";")
 
     @staticmethod
     def collecting_data_in_yfinance(ticker_cd, period):
         if period == "1 minuto":
-            df = yf.download(ticker_cd, period=Prediction_Date_MAX.for_1_min(), interval="1m")
+            df = yf.download(ticker_cd, period=Prediction_Date_MAX.for_1_min(), interval="1m") #download dos dados do yfinance
             df.reset_index(inplace=True)
-            column_list = list(df.columns)
+            column_list = list(df.columns) #lista colunas e ajusta primeira coluna (data)
             column_list[0] = "Datetime"
             df.columns = column_list
             df["Datetime"] = df["Datetime"].dt.strftime("%Y/%m/%d %H:%M:%S")

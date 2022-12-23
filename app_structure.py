@@ -5,7 +5,7 @@ import data_pre_processing
 
 sidebar_data_list = []
 
-
+#criação das estruturas da página: cabeçalho, corpo e barra lateral
 class Header:
     @staticmethod
     def print_it():
@@ -20,21 +20,23 @@ class Sidebar:
         selected_period = Sidebar.select_period()
         #selected_real_comp = Sidebar.prediction_x_reality()
 
-        sidebar_data_list = [ticker_name_select, selected_period]#, selected_real_comp]
+        sidebar_data_list = [ticker_name_select, selected_period]#, selected_real_comp] #lista de dados selecionados [Açao, Periodo]
 
     @staticmethod
     def select_ticker():
+        #Recebe DataFrame do CSV para escolha
         df_tickers = (data_pre_processing.DataTicker.collecting_data_name_in_csv())["ticker_company"]
 
         st.sidebar.header("Área de Ações")
         st.sidebar.write("Nessa seção você irá selecionar a ação a ser analisada,"
                          + " veja/digite a ação, logo abaixo:")
         ticker_name_select = st.sidebar.selectbox("Escolha uma ação:", df_tickers)
-        ticker_name_select = (ticker_name_select.split('-')[0] + ".SA")  # select ticker code
+        ticker_name_select = (ticker_name_select.split('-')[0] + ".SA")  # selecionar codigo do ticker/acao
         return ticker_name_select
 
     @staticmethod
     def select_period():
+        #scolha de periodos definidos em uma lista.
         periods = ["1 minuto", "2 minutos", "5 minutos", "15 minutos", "30 minutos"]
         periods += ["1 hora", "1 dia", "5 dias", "1 semana"]
 
@@ -54,8 +56,9 @@ class Body:
         #selected_real_comp = sidebar_data_list[2]  # Collected global variable data, extracted from the Sidebar class
 
         df_ticker = data_pre_processing.DataTicker.collecting_data_in_yfinance(ticker_name_select, selected_period)
+        #dados da ação
 
-        Body.show_data_graph(selected_period, ticker_name_select, df_ticker)
+        Body.show_data_graph(selected_period, ticker_name_select, df_ticker) #criação dos gráficos com as informações recebidas
         #Body.show_data_prediction(selected_real_comp, df_ticker)
 
     @staticmethod
@@ -77,7 +80,7 @@ class Body:
             valor do papel e sim que o papel sofreu algum tipo de evento finaceiro.")
         if st.button('Click aqui para saber mais...'):
             webbrowser.open_new_tab("https://dvinvest.com.br/aprenda/blog/introducao-aos-eventos-corporativos")
-
+        #grafico de velas/candlestick
         fig = go.Figure(data=[go.Candlestick(x=df_ticker['Datetime'],
                 open=df_ticker['Open'],
                 high=df_ticker['High'],
@@ -85,7 +88,7 @@ class Body:
                 close=df_ticker['Close'])])
 
         st.plotly_chart(fig)
-
+        #grafico de linhas
         st.subheader("Gráfico de preços de fechamentos ajustados")
         fig2 = go.Figure()
         fig2.add_trace(go.Scatter(x=df_ticker["Datetime"],
